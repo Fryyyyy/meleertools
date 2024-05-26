@@ -38,7 +38,8 @@ def get_active_matches(tournament_id):
             #'Player 1 Name': match['Competitors'][0]['Team']['Players'][0]['DisplayName'],
             #'Player 2 Name': match['Competitors'][1]['Team']['Players'][0]['DisplayName'],
             'table_no': match['TableNumber'],
-            'time_ext': match.get('TimeExtensionMinutes') or 0
+            'time_ext': match.get('TimeExtensionMinutes') or 0,
+            'staff': match.get('EndOfRoundStaffName') or ''
         }
         for match in matches["Content"] if not match['HasResult']
     ]
@@ -49,7 +50,7 @@ def get_active_matches(tournament_id):
             colour = "style='background-color: #eb6868;'"
         else:
             colour = ''
-        matches_processed.append(f"<tr><td>{match['table_no']}</td><td {colour}>{match['time_ext']}</td></tr>")
+        matches_processed.append(f"<tr><td>{match['table_no']}</td><td {colour}>{match['time_ext']}</td><td>{match['staff']}</td></tr>")
     matches_sub = {'tables': '\n'.join(matches_processed)}
     with open('index.html', 'w') as f:
         result = webpage_template.substitute(matches_sub)

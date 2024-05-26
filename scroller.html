@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Data Marquee</title>
+    
+    <style>
+        @keyframes marquee-animation {
+        from {
+            /* Start right out of view */
+        }
+        to {
+            /* Animate to the left of the container width */
+            left: 0;
+            transform: translateX(-100%);
+        }
+        }
+
+        .topmarquee {
+        width: 100%;
+        border: 1px solid #000;
+        }
+
+        .topmarquee .marquee {
+        /*width: calc(100% - 200px); */
+        position: relative;
+        overflow: hidden;
+        height: 50px;
+        }
+
+        .topmarquee .marquee #marqueeText {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        color: limegreen;
+        font-size: 3em;
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+        white-space: nowrap;
+        left: 100%;
+        transform: translateX(0);
+        animation-name: marquee-animation;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+        line-height: 100%;
+        width: 100%;
+        width: fit-content;
+        }
+    </style>
+        <script>
+            setTimeout(function(){
+                window.location.reload();
+            }, 20000);
+        </script>
+</head>
+<body bgcolor="black">
+    <div class="d-none d-lg-flex row topmarquee mt-4">
+        <div class="marquee">
+          <p id="marqueeText" class="marqueeText mb-0">
+            
+          </p>
+        </div>
+      </div>
+
+      <script>
+        const timePerPixel = 10;
+        const containerWidth = 1120;
+        const text = document.getElementById('marqueeText');
+        const textWidth = text.offsetWidth;
+        const distance = textWidth + containerWidth;
+        const duration = timePerPixel * distance;
+        text.style.animationDuration = duration + 'ms';
+    </script>
+</body>
+</html>
