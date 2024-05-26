@@ -44,6 +44,9 @@ def get_active_matches(tournament_id):
         for match in matches["Content"] if not match['HasResult']
     ]
     active_matches.sort(key=lambda x: (-x['time_ext'], x['table_no']))
+    return active_matches
+
+def write_matches(active_matches):
     matches_processed = []
     for match in active_matches:
         if match['time_ext'] > 0:
@@ -59,7 +62,7 @@ def get_active_matches(tournament_id):
     with open('scroller.html', 'w') as f:
         result = scroller_template.substitute(scroller_sub)
         f.write(result)
-    return matches_processed
+    return
 
 if __name__ == "__main__":
     f = open('template.html', 'r')
@@ -74,7 +77,8 @@ if __name__ == "__main__":
     while True:
         try:
             active_matches = get_active_matches(sys.argv[1])
-            print(f"Found {len(active_matches)} active matches")    
+            print(f"Found {len(active_matches)} active matches")
+            write_matches(active_matches)
         except Exception as e:
             print(f"An error occurred: {e}")
         time.sleep(30)
